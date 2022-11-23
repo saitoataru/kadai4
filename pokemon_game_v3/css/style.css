@@ -1,0 +1,111 @@
+    /* 共通 */
+    .text_center{
+        text-align: center;
+        margin: auto;
+        list-style-type: none;
+    }
+    .monster_text{
+        border: solid 3px #000000;
+    }
+    .cp_01_text{
+        padding: 0.5em 1em;
+        margin: 2em 0;
+        font-weight: bold;
+        border: solid 3px #000000;
+    }
+    .cp_02_01_wrapper{
+        padding: 0.5em 1em;
+        margin: 2em 0;
+        font-weight: bold;
+        border: solid 3px #000000;
+    }
+    .list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    }
+
+    .cp_02_wrapper {
+        display: none;
+    };
+    ul{
+        padding: 0;
+        border-top: 1px solid #000000;
+        display:table;  /* 定義 */
+        table-layout: fixed;
+        width:100%;
+    }
+    li{
+        list-style-type:none;
+        /* border: 1px solid #666;
+        background-color: #FFF;
+        display:table-cell;  
+        cursor: pointer; */
+    }
+    .hp_box{
+        height: 16px;
+        width: 100%;
+        background-color: dimgray;
+        border-radius: 5px;
+        border:2px solid black;
+    }
+
+    .current_hp {
+        height: 96%;
+        border-radius: 5px;
+        border-top: 1px solid white;
+        border-right: 1px solid white;
+        background-color:lightgreen;
+        width: 100%;
+    }
+    .button{
+        text-align: center;
+        width: 100px;
+        color: #fff;
+        background-color: #eb6100;
+        border-radius: 100vh;
+    }
+    .battle{
+        color: #fff;
+        background-color: #eb6100;
+        border-radius: 100vh;
+    }
+    .msg:nth-child(odd) {
+        background: green;
+        width: 40%;
+        margin-right: auto;
+        border-radius: 6px;
+    }
+    .msg:nth-child(even) {
+        background: pink;
+        width: 40%;
+        margin-left: auto;
+        border-radius: 6px;
+    }
+    .your_monster{
+        width: 300px;
+        background-color: beige;
+        height: 400px;
+    }
+
+    .enemy_monster{
+        width: 300px;
+        background-color: beige;
+        height: 400px;
+    }
+    .pic{
+        height: 300px;
+    }
+
+    .cp_06_lose_wrapper{
+        text-align: center;
+        height: 400px;
+    }
+    .jikkyo{
+        background-color: aliceblue;
+    }
+    .cp_04_01_wrapper{
+        text-align: center;
+        height: 400px;
+    }

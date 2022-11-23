@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ポケモン選択 -->
+    <div class="cp_03_wrapper text_center" >
+        <div class="cp_03_01_wrapper cp_01_text">
+            <p id="conversation_03_01">仲間を選ぼう！</p>
+            <div class = "next_text_btn_03_01" style="display:none;">
+             <a class="next_text_btn_03_01" id="next_text_btn_03_01"> >> </a>
+            </div>
+        </div>
+        <!-- ポケモン選択 -->
+        <div class="cp_03_02_wrapper text_center">
+            <ul class="list">
+                <li>
+                    <div class="monster text_center">
+                        <p class="monster_text">ヒトカゲ</p>
+                        <audio src="mp3/004_hitokage.wav" id="play-button_1"></audio>
+                    </div>
+                    <div class="monster_pic">
+                        <img src="img/monster1.jpeg" id = "monster1" class="" alt="">
+                    </div>
+                </li>
+                <li>
+                    <div class="monster text_center">
+                        <p class="monster_text">ゼニガメ</p>
+                        <audio src="mp3/007_zenigame.wav" id="play-button_2"></audio>
+                    </div>
+                    <div class="monster_pic">
+                        <img src="img/monster2.jpeg" id = "monster2" class="" alt="">
+                        <audio src="mp3/001_fushigidane.wav" id="play-button_3"></audio>
+                    </div>
+                </li>
+                <li>
+                    <div class="monster text_center">
+                        <p class="monster_text">フシギダネ</p>
+                    </div>
+                    <div class="monster_pic">
+                        <img src="img/monster3.jpeg" id = "monster3" class="" alt="">
+                    </div>
+                </li>
+                    
+                
+            </ul>
+        </div>
+    </div>
+        <!-- 主人公のアクション -->
+        <div class="cp_04_01_wrapper" style="display:none;">
+            
+                    <div class="button">
+                        <P class="battle">戦いに行く</P>
+                    </div>
+                
+        </div>
+        <!-- 選択肢①バトル -->
+        <div class="cp_05_01_wrapper text_center" style="display:none;">
+            <div class="text_center">
+            <ul class="text_center list">
+                <li>
+                    <div class="your_monster text_center">
+                        <p class="pokemonname">aaa</p>
+                        <div class="hp_box">
+                            <div class="current_hp" id="player_current_hp03"></div>
+                        </div>
+                        <p class ="yourHp">100</p>
+                        <div class="pic">
+                            <img class="yourpic" src="img/monster1.jpeg"  alt="">
+                        </div>
+                        <p class="yourname">▶︎あなた</p>
+                        <div class="list">
+                            <p class ="comment_your">アクションの選択をしよう</p>
+                        </div>
+                        <!-- 音声 -->
+                    </div>
+                </li>    
+                <li>
+                    <div class="enemy_monster text_center">
+                        <p>ゲンガー</p>
+                        <div class="hp_box">
+                            <div class="current_hp" id="applicant_current_hp03"></div>
+                        </div>  
+                        <p class ="enemyHp">100</p> 
+                        <div class="pic">
+                            <img src="img/enemy_1.jpeg"class="enemypic" alt="">    
+                        </div>
+                        <p>▶︎相手</p>
+                        <div class="list"></div>
+                        <p class ="comment_enemy">・・・</p>
+                        </div>    
+                    </div>   
+                </li>
+            </ul>
+            <button id="attack_click_1">戦う</button>     
+     
+        
+        </div>         
+        </div>
+        <div class="cp_06_lose_wrapper" style="display:none;">
+            <p>あなたの負けです...</p>
+            <button id="btn_lose">次へ進む</p>
+        </div>
+        <div class="cp_06_win_wrapper" style="display:none;">
+            <p>あなたの勝ちです！！</p>
+            <button id="btn_win">次へ進む</p>
+        </div>
+        <div class ="text_center jikkyo">
+            <p>実況中継</p>
+            <div class ="output" style="overflow:scroll; height: 300px;"></div>
+        </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--audience -->
+
+
+<!--/ コンテンツ表示画面 -->
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+    // firebaseで使用しろって言っているアクション(?)
+    import { getDatabase, ref, push, set, onChildAdded, remove,onChildRemoved } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+   
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const dbRef = ref(db,"dev245");
+
+    // 送信
+    $('#send').on("click",function(){
+        const uname = $("#uname").val();
+        console.log(uname,"aaa");
+        const text = $("#text").val();
+        console.log(text,"aaa");
+        alert(uname,text);
+        const msg = {
+            uname:uname,
+            text:text
+        }
+        const newPostRef = push(dbRef);//データを送信できる準備
+        set(newPostRef,msg);//forebaseの登録できる場所に保存する
+        // 送信後に入力欄をからにしましょう
+        $('#uname').val("");
+        $('#text').val("");
+        $('#uname').focus();
+    });
+    
+    // 最初にデータ取得&onSnapshotでリアルタイムにデータを取得
+    onChildAdded(dbRef,function(data){
+        const msg = data.val();
+        const key = data.key;//キーを手に入れている
+        console.log(msg,"取得したデータの塊")
+        console.log(key,"取得したデータの塊")
+        let h = `
+            <div class ="msg">
+                <ul>
+                    <li><p>${msg.uname}</p></li>
+                    <li><p>${msg.text}</p></li>
+                </ul>
+            </div>
+        `;
+        $(".output").append(h);
+        const output = document.getElementById('output');
+    output.scrollTo(0, output.scrollHeight);
+    });
+    $("#text").on("keydown",function(e){
+        console.log(e,"確認");
+    })
+
+    //配列にする
+    /*Firebaseの初期化処理は省略*/
+//     firebase.database().ref('data').once('value', (result) => {
+//         if (result.val()) {
+//             const l = []
+//             Object.keys(result.val()).forEach((key) => {
+//             const tmpObj = {}
+//              tmpObj[key] = result.val()[key]
+//         l.push(tmpObj)
+//     })
+//     console.log(l)
+//   }
+// })
+
+    //削除する
+    $("#btn_win").on("click", function () {
+        console.log("初期化OK");
+        remove(dbRef);
+    });
+
+    $("#btn_lose").on("click", function () {
+        console.log("初期化OK");
+        remove(dbRef);
+    });
+
+
+
+  </script>
+
+</body>
+</html>
+
+<script src="js/opning.js"></script>
+<script src="js/fight.js"></script>
+<script src="js/audience.js"></script>
+</body>
+</html>

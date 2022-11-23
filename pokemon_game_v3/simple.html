@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Firebase_version9_RealtimeDB(G'sACADEMY初学者用サンプル)</title>
+    
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+
+
+<div>
+    <div> 名前：<input type="" id="uname"> </div>
+    <div>
+        <textarea id="text" cols="30" rows="10"></textarea>
+        <button id="send">送信</button>
+    </div>
+   
+    <div id="output" style="overflow:scroll; height: 300px;"></div>
+</div>
+<!--/ コンテンツ表示画面 -->
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js";
+    // firebaseで使用しろって言っているアクション(?)
+    import { getDatabase, ref, push, set, onChildAdded, remove,onChildRemoved } from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAl7fvsX3t18iklR8adjipwHIFj0-rchXI",
+      authDomain: "dev245-fb1b0.firebaseapp.com",
+      projectId: "dev245-fb1b0",
+      storageBucket: "dev245-fb1b0.appspot.com",
+      messagingSenderId: "197496160174",
+      appId: "1:197496160174:web:0b8c12bcc4d22f7ccc923f"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const dbRef = ref(db,"dev245");
+
+    // 送信
+    $('#send').on("click",function(){
+        const uname = $("#uname").val();
+        console.log(uname,"aaa");
+        const text = $("#text").val();
+        console.log(text,"aaa");
+        alert(uname,text);
+        const msg = {
+            uname:uname,
+            text:text
+        }
+        const newPostRef = push(dbRef);//データを送信できる準備
+        set(newPostRef,msg);//forebaseの登録できる場所に保存する
+        // 送信後に入力欄をからにしましょう
+        $('#uname').val("");
+        $('#text').val("");
+        $('#uname').focus();
+    });
+    
+    // 最初にデータ取得&onSnapshotでリアルタイムにデータを取得
+    onChildAdded(dbRef,function(data){
+        const msg = data.val();
+        const key = data.key;//キーを手に入れている
+        console.log(msg,"取得したデータの塊")
+        console.log(key,"取得したデータの塊")
+        let h = `
+            <div class ="msg">
+                <p>${msg.uname}</p>
+                <p>${msg.text}</p>
+            </div>
+        `;
+        $("#output").append(h);
+    });
+    $("#text").on("keydown",function(e){
+        console.log(e,"確認");
+
+    })
+
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
